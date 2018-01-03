@@ -1,0 +1,5 @@
+smlrc
+G*
+*.asm
+obj/
+tmpsv/

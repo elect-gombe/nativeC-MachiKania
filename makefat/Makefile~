@@ -1,0 +1,77 @@
+
+LD = xc32-gcc
+CC = ../origdev/pic32/compiler/pic32-tools/bin/pic32-gcc
+CFLAG = -Os -minterlink-compressed -mprocessor=32MX250F128B -Wall -c -g
+OBJ = 	NVMem.o	\
+	aoutloader.o\
+	cmpdata.o\
+compiler.o\
+debug.o\
+editor.o\
+error.o\
+e.oeption.o\
+ff.o\
+ff_wrap.o\
+filer.o\
+flash.o\
+float.o\
+fu.otion.o\
+globalvars.o\
+keyinput.o\
+library.o\
+linker.o\
+main.o\
+memory.o\
+mus.o.o\
+operator.o\
+run.o\
+statement.o\
+string.o\
+test.o\
+value.o\
+varname.o\
+xprintf.o\
+
+machikaz: OBJ
+	$(LD) -o $@ $^  -mips16 -mprocessor=32MX250F128B -Os -T App_32MX170F256B.ld *.a -Wl,--defsym,_min_heap_size=0,--defsym=_min_stack_size=1000,--gc-sections,--report-mem -lm
+
+NVMem.o	:
+	$(CC) $^ -mips16 $(CFLAG)
+
+aoutloader.o
+cmpdata.o
+compiler.o
+debug.o
+editor.o
+error.o
+e.oeption.o
+ff.o
+ff_wrap.o
+filer.o
+flash.o
+float.o
+fu.otion.o
+globalvars.o
+keyinput.o
+library.o
+linker.o
+main.o
+memory.o
+mus.o.o
+operator.o
+run.o
+statement.o
+string.o
+test.o
+value.o
+varname.o
+xprintf.o
+
+
+
+# hello: hello.o sayhi.c
+#     gcc -o hello hello.o sayhi.o
+# hello.o: hello.c
+#     gcc -c hello.c
+# sayhi.o: sayhi.c
+#     gcc -c sayhi.c
