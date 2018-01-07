@@ -101,7 +101,7 @@
 
 /* MSPI DMA Settings */
 /* If U want DMAed FatFs,Uncomment Below! */
-//#define USE_SPIMMC_DMA
+#define USE_SPIMMC_DMA
 
 #define FF_DMA_RX		DMA.CH0
 #define FF_DMA_TX		DMA.CH1

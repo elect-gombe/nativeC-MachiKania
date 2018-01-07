@@ -48,5 +48,8 @@ const unsigned functiontable[]={
   /*0x2C*/(uint32_t)&stopPCG,
   /*0x2D*/(uint32_t)&ps2keystatus[0],
   /*0x2E*/(uint32_t)&set_palette,
-  /*0x2F*/(uint32_t)0,
+  /*0x2F*/0,
+  /*0x30*/(uint32_t)&set_graphmode,
+  /*0x31*/(uint32_t)&g_set_palette,
+  /*0x32*/(uint32_t)&gVRAM,
 };

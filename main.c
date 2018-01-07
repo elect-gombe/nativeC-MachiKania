@@ -16,6 +16,11 @@ extern const unsigned functiontable[];
 
 #define puts(x) xprintf("%s\n",(x))
 
+#pragma config PMDL1WAY = OFF, IOL1WAY = OFF
+#pragma config FPLLIDIV = DIV_1, FPLLMUL = MUL_16, FPLLODIV = DIV_1
+#pragma config FNOSC = PRIPLL, FSOSCEN = OFF, POSCMOD = XT, OSCIOFNC = OFF
+#pragma config FPBDIV = DIV_1, FWDTEN = OFF, JTAGEN = OFF, ICESEL = ICS_PGx1
+
 void wait60thsec(unsigned short n){
   // 60分のn秒ウェイト（ビデオ画面の最下行信号出力終了まで待つ）
   n+=drawcount;
@@ -62,7 +67,7 @@ int _main(void){
 
   init_composite();
   cls();
-  blue_screen();
+//  blue_screen();
   set_width(1);
 
   if(ps2init()){ //PS/2初期化

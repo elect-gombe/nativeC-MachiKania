@@ -187,7 +187,7 @@ struct fpos_t_
 #define MAX_CHAR_QUEUE_LEN   (MAX_STRING_LEN + 1)
 
 #ifndef MAX_MACRO_TABLE_LEN
-#define MAX_MACRO_TABLE_LEN  (4096+1024)
+#define MAX_MACRO_TABLE_LEN  (8192)
 #endif
 
 #ifndef MAX_IDENT_TABLE_LEN

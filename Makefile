@@ -12,13 +12,14 @@ LD = ../machikania/origdev/pic32/compiler/pic32-tools/bin/pic32-gcc
 
 ARCH            = mips
 
+
 OBJS            = smlrc.o ff.o NVMem.o ff_wrap.o lb.o xprintf.o main.o exception.o ps2keyboard.o videoout.o textvideolib.o as.o ld.o umm_info.o umm_integrity.o umm_malloc.o umm_poison.o aoutloader.o keyinput.o function_table.o cc.o autocomplete.o\
  sd.o\
  flash.o 
 
-CFLAGS 		+= -mprocessor=32MX250F128B  -g 
+CFLAGS 		+= -mprocessor=32MX270F256B  -g 
 
-LDFLAGS 	= -mprocessor=32MX250F128B -g -Wl,--defsym,_min_heap_size=0,--defsym=_min_stack_size=32,--gc-sections,--report-mem,-Map=filename.map
+LDFLAGS 	= -mprocessor=32MX270F256B -g -Wl,--defsym,_min_heap_size=0,--defsym=_min_stack_size=0,--gc-sections,--report-mem,-Map=filename.map
 
 SIZE = xc32-size
 BIN2HEX = xc32-bin2hex
@@ -57,7 +58,7 @@ flash.o: makefat/fatsrc/ flash.c
 		${CC} ${CFLAGS} flash.c -c -o $@
 
 sd.o:sd.c
-	$(CC) $(CFLAGS) sd.c -c -o $@
+	$(CC) -mprocessor=32MX250F128B -O2 sd.c -c -g -o $@
 
 exception.o:exception.c
 		${CC} -g -mprocessor=32MX250F128B exception.c -minterlink-compressed -O1 -c -o $@

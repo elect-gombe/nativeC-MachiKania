@@ -32,12 +32,6 @@
 #endif
 #include "ff.h"
 
-FATFS sdfs;
-
-int init_flashfs(void){
-  f_mount(&sdfs,"",0);
-}
-
 /* Defines -------------------------------------------------------------------*/
 /* Definitions for MMC/SDC command */
 #define CMD0	(0)					/* GO_IDLE_STATE */
@@ -91,12 +85,13 @@ static uint8_t CardType;						/* Card type flags */
     @retval : uint8_t
 */
 /**************************************************************************/
-
+static inline
 uint8_t rcvr_spi(void){
     putcSPI(0xFF);
     return getcSPI();
 }
 
+static inline
 uint8_t rcvr_spi_m(uint8_t *dst){
     putcSPI(0xFF);
     *dst = getcSPI();
@@ -236,18 +231,20 @@ static int rcvr_datablock (
 	if(token != 0xFE) return 0;		/* If not valid data token, retutn with error */
 
 #ifdef USE_SPIMMC_DMA
+    asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");
     DmaChnOpen(1, DMA_CHN_PRI2, DMA_OPEN_DEFAULT);
     DmaChnClrEvFlags(1,DMA_EV_ALL_EVNTS);
     DmaChnSetEventControl(1, DMA_EV_START_IRQ_EN|DMA_EV_START_IRQ(_SPI2_RX_IRQ));
     DmaChnSetTxfer(1, dumydata, (void*) &SPI2BUF, btr, 1, 1);
 
-    DmaChnOpen(2, DMA_CHN_PRI2, DMA_OPEN_DEFAULT);
+    DmaChnOpen(2, DMA_CHN_PRI3, DMA_OPEN_DEFAULT);
     DmaChnClrEvFlags(2,DMA_EV_ALL_EVNTS);
     DmaChnSetEventControl(2, DMA_EV_START_IRQ_EN|DMA_EV_START_IRQ(_SPI2_RX_IRQ));
     DmaChnSetTxfer(2, (void*) &SPI2BUF,buff, 1, btr, 1);
 
+    DmaChnEnable(1);
     DmaChnEnable(2);
-    DmaChnStartTxfer(1, DMA_WAIT_NOT, 0);
+    DmaChnForceTxfer(1);
 
     while(!(DmaChnGetEvFlags(2) & DMA_EV_DST_FULL));
 #else
@@ -277,7 +274,7 @@ static int xmit_datablock (
 )
 {
 	uint8_t resp;
-#ifndef USE_SPIMMC_DMA
+#if 1
 	uint8_t wc;
 #endif
 
@@ -285,8 +282,18 @@ static int xmit_datablock (
 
 	xmit_spi(token);					/* Xmit data token */
 	if (token != 0xFD) {				/* Is data token */
-#ifdef USE_SPIMMC_DMA
-	/* dma_send_transfer(buff, 512); */
+#if 0
+	  //#ifdef USE_SPIMMC_DMA
+	  DmaChnOpen(1, DMA_CHN_PRI3, DMA_OPEN_DEFAULT);
+	  DmaChnClrEvFlags(1,DMA_EV_ALL_EVNTS);
+	  DmaChnSetEventControl(1, DMA_EV_START_IRQ_EN|DMA_EV_START_IRQ(_SPI2_RX_IRQ));
+	  DmaChnSetTxfer(1, buff, (void*) &SPI2BUF, 512, 1, 1);
+	  DmaChnEnable(1);
+
+	  DmaChnForceTxfer(1);
+
+	  while(!(DmaChnGetEvFlags(1) & DMA_EV_SRC_FULL));
+	  /* dma_send_transfer(buff, 512); */
 #else
 		wc = 0;
 		do {							/* Xmit the 512 byte data block to MMC */

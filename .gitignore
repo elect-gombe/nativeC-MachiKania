@@ -3,3 +3,4 @@ G*
 *.asm
 obj/
 tmpsv/
+/smlrc.X/nbproject/private/
