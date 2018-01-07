@@ -7,3 +7,6 @@ tmpsv/
 /pacmanbuild.X/nbproject/private/
 /pacmanbuild.X/build/default/
 /pacmanbuild.X/dist/default/
+smlrc.elf
+smlrc.hex
+filename.map
