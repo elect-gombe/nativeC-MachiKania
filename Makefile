@@ -13,7 +13,7 @@ LD = ../machikania/origdev/pic32/compiler/pic32-tools/bin/pic32-gcc
 ARCH            = mips
 
 
-OBJS            = smlrc.o ff.o NVMem.o ff_wrap.o lb.o xprintf.o main.o exception.o ps2keyboard.o videoout.o textvideolib.o as.o ld.o umm_info.o umm_integrity.o umm_malloc.o umm_poison.o aoutloader.o keyinput.o function_table.o cc.o autocomplete.o\
+OBJS            = smlrc.o ff.o NVMem.o ff_wrap.o lb.o xprintf.o main.o exception.o ps2keyboard.o videoout.o textvideolib.o as.o ld.o umm_info.o umm_integrity.o umm_malloc.o umm_poison.o aoutloader.o keyinput.o function_table.o cc.o autocomplete.o graphvideolib.o\
  sd.o\
  flash.o 
 

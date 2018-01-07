@@ -67,7 +67,7 @@ int _main(void){
 
   init_composite();
   cls();
-//  blue_screen();
+  blue_screen();
   set_width(1);
 
   if(ps2init()){ //PS/2初期化
