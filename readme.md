@@ -1,6 +1,12 @@
 # Native-C Single chip Color Video system (NTSC)
  This is small OS for Single chip color video system.
 
+Target: PIC32MX270F256B(or PIC32MX170F256B)
+
+User Application area
+- Flash(internal storage, future upgrade area):80KB/256KB
+- RAM 60KB/64kB
+
 ## build-in
  - C build-tools
  - Video system(graphic and text mode)
